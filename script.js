@@ -3,23 +3,27 @@ const addTaskBtn = document.getElementById("addTask");
 const taskList = document.getElementById("taskList");
 const filter = document.getElementById("filter");
 
-function saveTasks() {
-  const tasks = [];
-  document.querySelectorAll("#taskList .task").forEach(task => {
-    tasks.push({
-      text: task.querySelector("span").textContent,
-      completa: task.classList.contains("completa")
-    });
+async function getTodos() {
+  const res = await fetch("https://dummyjson.com/todos");
+  const data = await res.json();
+  console.log("📌 API todos:", data.todos);
+
+  taskList.innerHTML = "";
+  data.todos.slice(0, 5).forEach(todo => { 
+    createTask(todo.todo, todo.completed, todo.id);
   });
-  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function loadTasks() {
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.forEach(task => createTask(task.text, task.completa));
+async function deleteTodoAPI(id, li) {
+  const res = await fetch(`https://dummyjson.com/todos/${id}`, {
+    method: "DELETE",
+  });
+  const data = await res.json();
+  console.log("🗑️ Removido na API:", data);
+  li.remove();
 }
 
-function createTask(text, isComplete = false) {
+function createTask(text, isComplete = false, id = null) {
   const li = document.createElement("li");
   li.classList.add("task");
   if (isComplete) li.classList.add("completa");
@@ -35,16 +39,14 @@ function createTask(text, isComplete = false) {
   doneBtn.classList.add("done-btn");
   doneBtn.onclick = () => {
     li.classList.toggle("completa");
-    saveTasks();
-    applyFilter();
+    if (id) updateTodoAPI(id, li.classList.contains("completa"));
   };
 
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "🗑️";
   deleteBtn.classList.add("delete-btn");
   deleteBtn.onclick = () => {
-    li.remove();
-    saveTasks();
+    if (id) deleteTodoAPI(id, li);
   };
 
   btns.appendChild(doneBtn);
@@ -53,14 +55,12 @@ function createTask(text, isComplete = false) {
   li.appendChild(span);
   li.appendChild(btns);
   taskList.appendChild(li);
-
-  saveTasks();
 }
 
 addTaskBtn.addEventListener("click", () => {
   const text = taskInput.value.trim();
   if (text) {
-    createTask(text);
+    createTodoAPI(text);
     taskInput.value = "";
   }
 });
@@ -69,14 +69,13 @@ taskInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     const text = taskInput.value.trim();
     if (text) {
-      createTask(text);
+      createTodoAPI(text);
       taskInput.value = "";
     }
   }
 });
 
 filter.addEventListener("change", applyFilter);
-
 function applyFilter() {
   const tasks = taskList.childNodes;
   tasks.forEach(task => {
@@ -93,8 +92,4 @@ function applyFilter() {
   });
 }
 
-function reload() {
-  taskList.innerHTML = "";
-  loadTasks();
-}
-window.onload = loadTasks;
+window.onload = getTodos;
