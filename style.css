@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: rgb(26, 24, 24);
+  background-color: rgb(0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,7 +8,18 @@ body {
   margin: 0;
 }
 
+.todo-container{
+  margin-top: 100px;
+}
+
 h1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  z-index: 100;
   color: #ffffff;
   text-align: center;
 }
@@ -72,7 +83,16 @@ ul {
 }
 
 .done-btn {
-  background: #02a345;
+  background: #02883a;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.edit-btn{
+  background: #5348e9;
   border: none;
   color: white;
   padding: 6px 10px;
@@ -81,7 +101,7 @@ ul {
 }
 
 .delete-btn {
-  background: #ca1602;
+  background: #8d0f01;
   border: none;
   color: white;
   padding: 6px 10px;
@@ -89,10 +109,18 @@ ul {
   cursor: pointer;
 }
 
-@media (max-width: 360px){
+@media (max-width: 375px){
   .todo-container {
     transform: scale(0.8);  
     transform-origin: top center;
     margin:0 auto;
+    margin-top: 100px;
+  }
+
+  h1{
+  width: 100%;
+  text-align: center;
+  z-index: 100;
+  top:-100px;
   }
 }
