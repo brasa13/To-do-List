@@ -10,23 +10,25 @@
 <body>
   <div class="todo-container">
     <h1>To-Do List</h1>
+
     <div class="input-container">
       <input type="text" id="taskInput" placeholder="Adicione uma nova tarefa...">
       <button class="add-btn" id="addTask">+</button>
+
       <select id="filter">
         <option value="todos">Todos</option>
         <option value="concluidos">Concluídos</option>
       </select>
+    </div>
+
+    <ul id="taskList"></ul>
+
+    <div class="paginacao">
+      <button id="PrevPage">⏪</button>
+      <button id="NextPage">⏩</button>
+      <span id="PageInfo"></span>
       
     </div>
-    <ul id="taskList"></ul>
-    <button paginacao="taskList">1</ul>
-    <button paginacao="taskList">2</ul>
-    <button paginacao="taskList">3</ul>
-    <button paginacao="taskList">4</ul>
-    <button paginacao="taskList">5</ul>
   </div>
-
 </body>
 </html>
-
