@@ -8,27 +8,31 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="todo-container">
-    <h1>To-Do List</h1>
+  <main class="app-shell">
+    <header class="hero">
+      <p class="eyebrow">Organize seu dia</p>
+      <h1>To-Do List</h1>
+    </header>
 
-    <div class="input-container">
-      <input type="text" id="taskInput" placeholder="Adicione uma nova tarefa...">
-      <button class="add-btn" id="addTask">+</button>
+    <div class="todo-container">
+      <div class="input-container">
+        <input type="text" id="taskInput" placeholder="Adicione uma nova tarefa...">
+        <button class="add-btn" id="addTask" aria-label="Adicionar tarefa">+</button>
 
-      <select id="filter">
-        <option value="todos">Todos</option>
-        <option value="concluidos">Concluídos</option>
-      </select>
+        <select id="filter" aria-label="Filtrar tarefas">
+          <option value="todos">Todos</option>
+          <option value="concluidos">Concluídos</option>
+        </select>
+      </div>
+
+      <ul id="taskList"></ul>
+
+      <div class="paginacao">
+        <button id="PrevPage" aria-label="Página anterior">⏪</button>
+        <span id="PageInfo"></span>
+        <button id="NextPage" aria-label="Próxima página">⏩</button>
+      </div>
     </div>
-
-    <ul id="taskList"></ul>
-
-    <div class="paginacao">
-      <button id="PrevPage">⏪</button>
-      <button id="NextPage">⏩</button>
-      <span id="PageInfo"></span>
-      
-    </div>
-  </div>
+  </main>
 </body>
 </html>
